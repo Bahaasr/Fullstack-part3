@@ -24,6 +24,7 @@ let Data = [
   }
 ]
 
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send('<h1>Hello World</h1>')
@@ -59,6 +60,27 @@ app.delete('/api/persons/:id', (req, res) => {
   res.status(204).end()
 })
 
+app.post('/api/persons', (req, res) => {
+  const { name, number } = req.body
+
+  if (!name || !number) {
+    return res.status(400).json({ error: 'Name or number is missing' })
+  }
+
+  const existingPerson = Data.find(person => person.name === name)
+
+  if (existingPerson) {
+    return res.status(400).json({ error: 'Name must be unique' })
+  }
+
+  const id = String(Math.max(...Data.map(person => Number(person.id)), 0) + 1)
+
+  const newPerson = { id, name, number }
+
+  Data = Data.concat(newPerson)
+
+  res.status(201).json(newPerson)
+})
 
 
 const PORT = 3001; 
