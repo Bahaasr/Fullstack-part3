@@ -24,6 +24,8 @@ const Data = [
   }
 ]
 
+const Info = `<p>Phonebook has info for ${Data.length} people</p> <p>${new Date()} </p>`
+
 
 app.get('/', (req, res) => {
     res.send('<h1>Hello World</h1>');
@@ -33,6 +35,9 @@ app.get('/api/persons', (req, res) => {
   res.send(Data);
 });
 
+app.get('/api/info', (req, res) => {
+  res.send(Info);
+});
 
 const PORT = 3001; 
 app.listen(PORT, () => {
