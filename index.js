@@ -1,3 +1,4 @@
+const morgan = require('morgan')
 const express = require('express')
 const app = express()
 
@@ -23,6 +24,8 @@ let Data = [
     "number": "39-23-6423122"
   }
 ]
+
+app.use(morgan('tiny'))
 
 app.use(express.json())
 
