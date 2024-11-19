@@ -1,0 +1,26 @@
+{
+  "name": "fullstack-part4",
+  "version": "1.0.0",
+  "description": "part3",
+  "main": "index.js",
+  "scripts": {
+    "start" : "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bahaasr/Fullstack-part3.git"
+  },
+  "author": "Bahaa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bahaasr/Fullstack-part3/issues"
+  },
+  "homepage": "https://github.com/Bahaasr/Fullstack-part3#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
