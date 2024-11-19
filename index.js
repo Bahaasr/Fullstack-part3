@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-const Data = [
+let Data = [
   { 
     "id": "1",
     "name": "Arto Hellas", 
@@ -24,20 +24,42 @@ const Data = [
   }
 ]
 
-const Info = `<p>Phonebook has info for ${Data.length} people</p> <p>${new Date()} </p>`
-
 
 app.get('/', (req, res) => {
-    res.send('<h1>Hello World</h1>');
-});
+    res.send('<h1>Hello World</h1>')
+})
 
 app.get('/api/persons', (req, res) => {
-  res.send(Data);
-});
+  res.send(Data)
+})
 
 app.get('/api/info', (req, res) => {
-  res.send(Info);
-});
+  const Info = `<p>Phonebook has info for ${Data.length} people</p> <p>${new Date()} </p>`
+  res.send(Info)
+})
+
+app.get('/api/persons/:id', (req, res) => {
+  const { id } = req.params
+  const person = Data.find(person => person.id === id)
+
+  if (person) {
+    res.json(person)
+  } else {
+    res.status(404).send({ error: 'Person not found' })
+  }
+})
+
+app.delete('/api/persons/:id', (req, res) => {
+  const { id } = req.params
+  const person = Data.find(person => person.id === id)
+  if (!person) {
+    return res.status(404).json({ error: 'Person not found' })
+  }
+  Data = Data.filter(person => person.id !== id)
+  res.status(204).end()
+})
+
+
 
 const PORT = 3001; 
 app.listen(PORT, () => {
