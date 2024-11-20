@@ -25,9 +25,20 @@ let Data = [
   }
 ]
 
-app.use(morgan('tiny'))
-
 app.use(express.json())
+
+app.use((req,res,next) => {
+  if(req.method === 'POST'){
+  req.bodyContent = JSON.stringify(req.body)
+  }else{
+    req.bodyContent = ''
+  }
+  next ()
+})
+
+morgan.token('body', (req) => req.bodyContent)
+
+app.use(morgan(':method :url :status - :response-time ms - :body'))
 
 app.get('/', (req, res) => {
     res.send('<h1>Hello World</h1>')
